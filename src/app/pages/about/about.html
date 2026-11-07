@@ -1,0 +1,66 @@
+<section class="relative overflow-hidden bg-[#0a0a0a] py-20">
+  <div class="absolute inset-0 bg-[linear-gradient(rgba(38,38,38,0.5)_1px,transparent_1px),linear-gradient(90deg,rgba(38,38,38,0.5)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <span class="section-label inline-flex items-center gap-2 mb-6">من نحن</span>
+    <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">مهمتنا هي <span class="gradient-text">الإعلام والإلهام</span></h1>
+    <p class="text-xl text-neutral-400 max-w-2xl mx-auto">مدونة متخصصة في فن التصوير الفوتوغرافي، نشارك معكم أسرار المحترفين ونصائح عملية لتطوير مهاراتكم.</p>
+  </div>
+</section>
+
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <div class="grid md:grid-cols-4 gap-6 mb-16">
+    <div class="card p-6 text-center">
+      <p class="text-3xl font-bold text-white">+2مليون</p>
+      <p class="text-neutral-500 text-sm mt-1">قارئ شهرياً</p>
+    </div>
+    <div class="card p-6 text-center">
+      <p class="text-3xl font-bold text-white">+500</p>
+      <p class="text-neutral-500 text-sm mt-1">مقالة منشورة</p>
+    </div>
+    <div class="card p-6 text-center">
+      <p class="text-3xl font-bold text-white">+50</p>
+      <p class="text-neutral-500 text-sm mt-1">كاتب خبير</p>
+    </div>
+    <div class="card p-6 text-center">
+      <p class="text-3xl font-bold text-white">+15</p>
+      <p class="text-neutral-500 text-sm mt-1">تصنيف</p>
+    </div>
+  </div>
+
+  <div class="text-center mb-10">
+    <span class="section-label inline-flex">قيمنا</span>
+    <h2 class="text-3xl font-bold text-white mt-3">المبادئ التي توجه كل ما نقوم بإنشائه</h2>
+  </div>
+  <div class="grid md:grid-cols-4 gap-6 mb-16">
+    <div class="card p-6">
+      <h3 class="text-white font-semibold mb-2">الجودة أولاً</h3>
+      <p class="text-neutral-400 text-sm">محتوى مدروس ومكتوب بخبرة</p>
+    </div>
+    <div class="card p-6">
+      <h3 class="text-white font-semibold mb-2">تركيز عملي</h3>
+      <p class="text-neutral-400 text-sm">أمثلة واقعية يمكنك تطبيقها اليوم</p>
+    </div>
+    <div class="card p-6">
+      <h3 class="text-white font-semibold mb-2">المجتمع</h3>
+      <p class="text-neutral-400 text-sm">تعلم مع آلاف المصورين</p>
+    </div>
+    <div class="card p-6">
+      <h3 class="text-white font-semibold mb-2">دائماً محدث</h3>
+      <p class="text-neutral-400 text-sm">أحدث الاتجاهات وأفضل الممارسات</p>
+    </div>
+  </div>
+
+  <div class="text-center mb-10">
+    <span class="section-label inline-flex">فريقنا</span>
+    <h2 class="text-3xl font-bold text-white mt-3">تعرف على كتابنا</h2>
+  </div>
+  <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+    @for (a of authors; track a.name) {
+      <div class="card p-4 text-center">
+        <img [src]="a.avatar" [alt]="a.name" class="w-16 h-16 rounded-full object-cover mx-auto ring-2 ring-[#262626] mb-3">
+        <p class="text-white text-sm font-semibold">{{ a.name }}</p>
+        <p class="text-neutral-500 text-xs">{{ a.role }}</p>
+      </div>
+    }
+  </div>
+</section>

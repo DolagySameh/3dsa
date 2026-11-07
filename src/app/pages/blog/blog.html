@@ -1,0 +1,137 @@
+<!-- Hero -->
+<section class="relative overflow-hidden bg-[#0a0a0a] py-20">
+  <div class="absolute inset-0 bg-[linear-gradient(rgba(38,38,38,0.5)_1px,transparent_1px),linear-gradient(90deg,rgba(38,38,38,0.5)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+  <div class="absolute inset-0">
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-yellow-500/5 rounded-full blur-3xl"></div>
+  </div>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <span class="section-label inline-flex items-center gap-2 mb-6">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+      مدونتنا
+    </span>
+    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">استكشف <span class="gradient-text">مقالاتنا</span></h1>
+    <p class="text-xl text-neutral-400 max-w-2xl mx-auto">اكتشف الدروس والرؤى وأفضل الممارسات للتطوير الحديث</p>
+  </div>
+</section>
+
+<!-- Toolbar -->
+<div class="sticky top-20 z-40 bg-[#0a0a0a]/90 backdrop-blur-xl border-b border-[#262626]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="relative w-full md:w-80">
+        <input [(ngModel)]="query" (ngModelChange)="onSearch()" placeholder="ابحث في المقالات..." class="input-dark w-full px-5 py-3 pr-12" type="text">
+        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-3">
+        <select [(ngModel)]="selectedCategory" (ngModelChange)="onCategoryChange()" class="input-dark px-4 py-2.5 text-sm">
+          <option value="all">جميع المقالات</option>
+          @for (c of categories; track c.name) {
+            <option [value]="c.name">{{ c.name }}</option>
+          }
+        </select>
+
+        <div class="flex items-center bg-[#161616] border border-[#262626] rounded-xl p-1">
+          <button (click)="setView('grid')" [class]="view() === 'grid' ? 'p-2 rounded-lg transition-all duration-300 bg-orange-500 text-white' : 'p-2 rounded-lg transition-all duration-300 text-neutral-400 hover:text-white'" title="عرض شبكي">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+          </button>
+          <button (click)="setView('list')" [class]="view() === 'list' ? 'p-2 rounded-lg transition-all duration-300 bg-orange-500 text-white' : 'p-2 rounded-lg transition-all duration-300 text-neutral-400 hover:text-white'" title="عرض قائمة">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 scroll-mt-[146px]">
+  <div class="mb-8 flex items-center justify-between">
+    <p class="text-neutral-400">عرض <span class="font-bold text-white">{{ filtered().length }}</span> مقالات</p>
+  </div>
+
+  @if (view() === 'grid') {
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      @for (post of paginated(); track post.slug) {
+        <article class="group card overflow-hidden" [style.animation-delay.ms]="$index * 100">
+          <a class="block" [routerLink]="['/blog', post.slug]">
+            <div class="relative h-52 overflow-hidden">
+              <img [src]="post.image" [alt]="post.title" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div class="absolute top-4 right-4"><span class="px-3 py-1 bg-[#0a0a0a]/80 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-[#333333]">{{ post.category }}</span></div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-3 text-sm text-neutral-500 mb-3">
+                <span class="flex items-center gap-1">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  {{ post.readTime }}
+                </span>
+                <span class="w-1 h-1 bg-neutral-600 rounded-full"></span>
+                <span>{{ formatDate(post.date) }}</span>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-3 group-hover:text-orange-500 transition-colors duration-300 line-clamp-2 leading-tight">{{ post.title }}</h3>
+              <p class="text-neutral-400 mb-5 line-clamp-2 text-sm leading-relaxed">{{ post.excerpt }}</p>
+              <div class="flex items-center justify-between pt-4 border-t border-[#262626]">
+                <div class="flex items-center gap-3">
+                  <img [src]="post.author.avatar" [alt]="post.author.name" class="w-9 h-9 rounded-full object-cover ring-2 ring-[#262626]">
+                  <div>
+                    <p class="text-sm font-medium text-white">{{ post.author.name }}</p>
+                    <p class="text-xs text-neutral-500">{{ post.author.role }}</p>
+                  </div>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-orange-500/10 flex items-center justify-center group-hover:bg-orange-500 transition-colors duration-300 border border-orange-500/20 group-hover:border-transparent">
+                  <svg class="w-4 h-4 text-orange-500 group-hover:text-white transition-colors duration-300 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </div>
+              </div>
+            </div>
+          </a>
+        </article>
+      } @empty {
+        <div class="col-span-full text-center py-16 text-neutral-400">لا توجد مقالات مطابقة.</div>
+      }
+    </div>
+  } @else {
+    <div class="space-y-6">
+      @for (post of paginated(); track post.slug) {
+        <article class="group card overflow-hidden flex flex-col md:flex-row">
+          <a class="block md:w-64 shrink-0" [routerLink]="['/blog', post.slug]">
+            <div class="relative h-48 md:h-full overflow-hidden">
+              <img [src]="post.image" [alt]="post.title" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out">
+              <div class="absolute top-4 right-4"><span class="px-3 py-1 bg-[#0a0a0a]/80 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-[#333333]">{{ post.category }}</span></div>
+            </div>
+          </a>
+          <div class="p-6 flex-1">
+            <div class="flex items-center gap-3 text-sm text-neutral-500 mb-2">
+              <span>{{ post.readTime }}</span>
+              <span class="w-1 h-1 bg-neutral-600 rounded-full"></span>
+              <span>{{ formatDate(post.date) }}</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-orange-500 transition-colors">{{ post.title }}</h3>
+            <p class="text-neutral-400 text-sm leading-relaxed mb-4 line-clamp-3">{{ post.excerpt }}</p>
+            <div class="flex items-center gap-3">
+              <img [src]="post.author.avatar" [alt]="post.author.name" class="w-8 h-8 rounded-full object-cover ring-2 ring-[#262626]">
+              <div>
+                <p class="text-sm font-medium text-white">{{ post.author.name }}</p>
+                <p class="text-xs text-neutral-500">{{ post.author.role }}</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      } @empty {
+        <div class="text-center py-16 text-neutral-400">لا توجد مقالات مطابقة.</div>
+      }
+    </div>
+  }
+
+  <!-- Pagination -->
+  @if (totalPages() > 1) {
+    <div class="mt-12 flex items-center justify-center gap-2">
+      <button (click)="goTo(page()-1)" [disabled]="page()===1" class="px-4 py-2 rounded-xl bg-[#161616] border border-[#262626] text-white disabled:opacity-40 hover:border-orange-500/50 transition-colors">السابق</button>
+      @for (p of pageNumbers(); track p) {
+        <button (click)="goTo(p)" [class]="p === page() ? 'px-4 py-2 rounded-xl bg-orange-500 text-white' : 'px-4 py-2 rounded-xl bg-[#161616] border border-[#262626] text-white hover:border-orange-500/50 transition-colors'">{{ p }}</button>
+      }
+      <button (click)="goTo(page()+1)" [disabled]="page()===totalPages()" class="px-4 py-2 rounded-xl bg-[#161616] border border-[#262626] text-white disabled:opacity-40 hover:border-orange-500/50 transition-colors">التالي</button>
+      <span class="text-neutral-500 text-sm mr-4">صفحة {{ page() }} من {{ totalPages() }}</span>
+    </div>
+  }
+</div>

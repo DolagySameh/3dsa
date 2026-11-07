@@ -1,0 +1,50 @@
+<footer class="bg-[#0a0a0a] border-t border-[#262626] mt-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div class="md:col-span-1">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <p class="text-white font-bold text-lg">عدسة</p>
+        </div>
+        <p class="text-neutral-400 text-sm leading-relaxed">{{ site.description }}</p>
+      </div>
+
+      <div>
+        <h4 class="text-white font-semibold mb-4">استكشف</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a routerLink="/" class="text-neutral-400 hover:text-orange-500 transition-colors">الرئيسية</a></li>
+          <li><a routerLink="/blog" class="text-neutral-400 hover:text-orange-500 transition-colors">المدونة</a></li>
+          <li><a routerLink="/about" class="text-neutral-400 hover:text-orange-500 transition-colors">من نحن</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-white font-semibold mb-4">التصنيفات</h4>
+        <ul class="space-y-2 text-sm">
+          @for (c of categories; track c.name) {
+            <li><a [routerLink]="['/blog']" [queryParams]="{category: c.name}" class="text-neutral-400 hover:text-orange-500 transition-colors">{{ c.name }}</a></li>
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-white font-semibold mb-4">ابقى على اطلاع</h4>
+        <p class="text-neutral-400 text-sm mb-3">اشترك للحصول على أحدث المقالات والتحديثات.</p>
+        <div class="flex gap-2">
+          <input type="email" placeholder="بريدك الإلكتروني" class="flex-1 px-3 py-2 rounded-xl bg-[#161616] border border-[#262626] text-white text-sm focus:outline-none focus:border-orange-500">
+          <button class="px-4 py-2 rounded-xl bg-orange-500 text-white text-sm font-semibold">اشترك</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-[#262626] mt-12 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-neutral-500">
+      <p>© 2026 عدسة. جميع الحقوق محفوظة.</p>
+      <div class="flex gap-6">
+        <a routerLink="/" class="hover:text-orange-500 transition-colors">سياسة الخصوصية</a>
+        <a routerLink="/" class="hover:text-orange-500 transition-colors">شروط الخدمة</a>
+      </div>
+    </div>
+  </div>
+</footer>
